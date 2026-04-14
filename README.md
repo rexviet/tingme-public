@@ -19,18 +19,18 @@ Ngoài các service độc lập (`ms-wallet`, `ms-video`, `ms-shopping`, `ms-ch
 ```mermaid
 flowchart LR
     C[Mobile/Web Client]
-    AG[API Gateway\n(tingme-api main)]
+    AG["API Gateway (tingme-api main)"]
     WG[WS Gateway]
     RG[RPC Gateway]
 
-    U[MS User\n(tingme-api main-grpc)]
+    U["MS User (tingme-api main-grpc)"]
     W[MS Wallet]
     V[MS Video]
     S[MS Shopping]
     N[MS Notification]
     CH[MS Chat]
     A[MS Airdrop]
-    BTC[MS BTC Transactions\n(cron worker)]
+    BTC["MS BTC Transactions (cron worker)"]
 
     SNS[SNS Topics]
     SQS[SQS Queues]
