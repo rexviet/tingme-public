@@ -35,7 +35,13 @@ flowchart LR
     SNS[SNS Topics]
     SQS[SQS Queues]
     EB[EventBridge Rules]
-    OX[(Outbox Table)]
+    OXU[(Outbox User)]
+    OXW[(Outbox Wallet)]
+    OXV[(Outbox Video)]
+    OXS[(Outbox Shopping)]
+    OXCH[(Outbox Chat)]
+    OXA[(Outbox Airdrop)]
+    OXBTC[(Outbox BTC)]
 
     PG[(PostgreSQL)]
     MG[(MongoDB)]
@@ -69,15 +75,21 @@ flowchart LR
     A --> PG
     BTC --> PG
 
-    U --> OX
-    W --> OX
-    V --> OX
-    S --> OX
-    CH --> OX
-    A --> OX
-    BTC --> OX
+    U --> OXU
+    W --> OXW
+    V --> OXV
+    S --> OXS
+    CH --> OXCH
+    A --> OXA
+    BTC --> OXBTC
 
-    OX -->|cron publish| SNS
+    OXU -->|cron publish| SNS
+    OXW -->|cron publish| SNS
+    OXV -->|cron publish| SNS
+    OXS -->|cron publish| SNS
+    OXCH -->|cron publish| SNS
+    OXA -->|cron publish| SNS
+    OXBTC -->|cron publish| SNS
     SNS --> SQS
     SQS -->|consumer modules| U
     SQS --> W
@@ -130,7 +142,7 @@ flowchart LR
 
 ### 4.2 Asynchronous (event-driven)
 
-- Các service ghi event vào bảng `outboxes`.
+- Mỗi service ghi event vào **outbox table riêng** trong DB/schema của service đó.
 - Cron job `EVERY_SECOND` publish event mới lên SNS/SQS qua `QueueService`.
 - Consumer modules của từng service subscribe topic tương ứng và xử lý eventual consistency.
 
